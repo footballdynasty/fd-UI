@@ -1,24 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import * as React from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import ResponsiveAppBar from './components/appbar'; // Adjust the import path if necessary
+import Achievements from './components/pages/achievements';
+import Polls from './components/pages/polls';
+import Standings from './components/pages/standings';
+import Media from './components/pages/media';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <ResponsiveAppBar />
+      <Routes>
+        <Route path="/achievements" element={<Achievements />} />
+        <Route path="/polls" element={<Polls />} />
+        <Route path="/standings" element={<Standings />} />
+        <Route path="/media" element={<Media />} />
+      </Routes>
+    </Router>
   );
 }
 
