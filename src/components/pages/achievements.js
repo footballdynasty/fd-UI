@@ -100,7 +100,14 @@ function Achievements() {
     };
 
     const handleUpdateAchievement = () => {
-        const updateURL = `${UPDATE_URL}?id=${updateId}&description=${updateDescription}&reward=${updateReward}&date_completed=${updateEpoch}`;
+        // Construct the base update URL with required parameters
+        let updateURL = `${UPDATE_URL}?id=${updateId}&description=${updateDescription}&reward=${updateReward}`;
+    
+        // Conditionally add date_completed if it's available
+        if (updateEpoch) {
+            updateURL += `&date_completed=${updateEpoch}`;
+        }
+    
         fetch(updateURL, {
             method: 'POST'
         })
@@ -115,7 +122,6 @@ function Achievements() {
                 }
             })
             .then(data => {
-                // Update the achievements state with the updated achievement
                 const updatedAchievements = achievements.map(achievement => {
                     if (achievement.id === updateId) {
                         return {
@@ -138,7 +144,7 @@ function Achievements() {
                 setError(error);
             });
     };
-
+    
     const handleDeleteOpen = (achievement) => {
         setSavedId(achievement.id); // Set savedId to the ID of the achievement
         setDeleteOpen(true); // Open the delete dialog
@@ -158,12 +164,12 @@ function Achievements() {
 
     const handleUpdateOpen = (achievement) => {
         setUpdateOpen(true);
-        setUpdateId(achievement.id); // Set updateId to the ID of the achievement
-        setUpdateDescription(achievement.description); // Set other update fields
+        setUpdateId(achievement.id);
+        setUpdateDescription(achievement.description);
         setUpdateReward(achievement.reward);
-        setUpdateEpoch(achievement.date_completed.toString()); // Assuming date_completed is a string
+        setUpdateEpoch(achievement.date_completed ? achievement.date_completed.toString() : ''); // Handle null case
     };
-
+    
     const handleUpdateClose = () => {
         setUpdateOpen(false);
     };
