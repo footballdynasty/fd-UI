@@ -35,6 +35,9 @@ function Achievements() {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
+                if (response.data === undefined) {
+                    console.log('No achievements found'); 
+                }
                 return response.json();
             })
             .then(data => {
@@ -47,7 +50,7 @@ function Achievements() {
     }, []);
 
     const handleCreateAchievement = () => {
-        const createURL = `${API_URL}/createAchievement?description=${newDescription}&reward=${newReward}`;
+        const createURL = `http://localhost:8080/api/v1.0/createAchievement?description=${newDescription}&reward=${newReward}`;
         fetch(createURL, {
             method: 'POST'
         })
@@ -68,7 +71,7 @@ function Achievements() {
                 setError(error);
             });
     };
-
+    
     const handleDeleteAchievement = () => {
         const deleteURL = `${DELETE_URL}?id=${savedId}`;
         fetch(deleteURL, {
@@ -78,7 +81,11 @@ function Achievements() {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                return response.json();
+                if (response.data === undefined) {
+                    console.log('No achievements found'); // Optional: Log message for empty data
+                } else {
+                    return response.json();
+                }
             })
             .then(() => {
                 const updatedAchievements = achievements.filter(achievement => achievement.id !== savedId);
@@ -101,7 +108,11 @@ function Achievements() {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                return response.json();
+                if (response.data === undefined) {
+                    console.log('No achievements found'); // Optional: Log message for empty data
+                } else {
+                    return response.json();
+                }
             })
             .then(data => {
                 // Update the achievements state with the updated achievement
