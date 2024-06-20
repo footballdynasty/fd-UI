@@ -12,17 +12,23 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 
 const API_URL = 'http://localhost:8080/api/v1.0/achievements';
-const DELETE_URL = 'http://localhost:8080/api/v1.0/deleteAchievements';
+const DELETE_URL = 'http://localhost:8080/api/v1.0/deleteAchievement';
+const UPDATE_URL = 'http://localhost:8080/api/v1.0/updateAchievement';
 
 function Achievements() {
     const [achievements, setAchievements] = useState([]);
     const [error, setError] = useState(null);
     const [open, setCreateOpen] = useState(false);
     const [dopen, setDeleteOpen] = useState(false);
+    const [updateOpen, setUpdateOpen] = useState(false);
     const [newDescription, setNewDescription] = useState('');
     const [newReward, setNewReward] = useState('');
     const [savedId, setSavedId] = useState('');
-
+    const [updateDescription, setUpdateDescription] = useState('');
+    const [updateEpoch, setUpdateEpoch] = useState('');
+    const [updateReward, setUpdateReward] = useState('');
+    const [updateId, setUpdateId] = useState('');
+    
     useEffect(() => {
         fetch(API_URL)
             .then(response => {
@@ -41,7 +47,7 @@ function Achievements() {
     }, []);
 
     const handleCreateAchievement = () => {
-        const createURL = `http://localhost:8080/api/v1.0/createAchievement?description=${newDescription}&reward=${newReward}`;
+        const createURL = `${API_URL}/createAchievement?description=${newDescription}&reward=${newReward}`;
         fetch(createURL, {
             method: 'POST'
         })
@@ -64,49 +70,92 @@ function Achievements() {
     };
 
     const handleDeleteAchievement = () => {
-        const createURL = `http://localhost:8080/api/v1.0/deleteAchievement?id=${savedId}`;
-        fetch(createURL, {
+        const deleteURL = `${DELETE_URL}?id=${savedId}`;
+        fetch(deleteURL, {
             method: 'DELETE'
         })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                if (response.data == undefined) {
-                    setDeleteOpen(false);
-                } else {
-                    return response.json();
-                }                
+                return response.json();
             })
             .then(() => {
                 const updatedAchievements = achievements.filter(achievement => achievement.id !== savedId);
                 setAchievements(updatedAchievements);
-                setCreateOpen(false);
-                setNewDescription('');
-                setNewReward('');
+                setDeleteOpen(false);
+                setSavedId('');
             })
             .catch(error => {
-                console.error('Error creating achievement:', error);
+                console.error('Error deleting achievement:', error);
                 setError(error);
             });
     };
 
-    const handleDeleteOpen = () => {
-        setDeleteOpen(true);
+    const handleUpdateAchievement = () => {
+        const updateURL = `${UPDATE_URL}?id=${updateId}&description=${updateDescription}&reward=${updateReward}&date_completed=${updateEpoch}`;
+        fetch(updateURL, {
+            method: 'POST'
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Update the achievements state with the updated achievement
+                const updatedAchievements = achievements.map(achievement => {
+                    if (achievement.id === updateId) {
+                        return {
+                            ...achievement,
+                            description: updateDescription,
+                            reward: updateReward
+                        };
+                    }
+                    return achievement;
+                });
+                setAchievements(updatedAchievements);
+                setUpdateOpen(false);
+                setUpdateId('');
+                setUpdateDescription('');
+                setUpdateReward('');
+                setUpdateEpoch('');
+            })
+            .catch(error => {
+                console.error('Error updating achievement:', error);
+                setError(error);
+            });
     };
 
+    const handleDeleteOpen = (achievement) => {
+        setSavedId(achievement.id); // Set savedId to the ID of the achievement
+        setDeleteOpen(true); // Open the delete dialog
+    };
+    
     const handleDeleteClose = () => {
         setDeleteOpen(false);
     };
-
+    
     const handleCreateOpen = () => {
         setCreateOpen(true);
     };
-
+    
     const handleCreateClose = () => {
         setCreateOpen(false);
     };
 
+    const handleUpdateOpen = (achievement) => {
+        setUpdateOpen(true);
+        setUpdateId(achievement.id); // Set updateId to the ID of the achievement
+        setUpdateDescription(achievement.description); // Set other update fields
+        setUpdateReward(achievement.reward);
+        setUpdateEpoch(achievement.date_completed.toString()); // Assuming date_completed is a string
+    };
+
+    const handleUpdateClose = () => {
+        setUpdateOpen(false);
+    };
 
     if (error) {
         return <Typography>Error: {error.message}</Typography>;
@@ -118,9 +167,6 @@ function Achievements() {
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                     <Button variant="contained" color="primary" onClick={handleCreateOpen}>
                         Create Achievement
-                    </Button>
-                    <Button variant="contained" color="secondary" onClick={handleDeleteOpen}>
-                        Delete Achievement
                     </Button>
                 </Box>
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'center', flexGrow: 1 }}>
@@ -139,6 +185,8 @@ function Achievements() {
                                 </Typography>
                             </CardContent>
                             <CardActions>
+                                <Button onClick={() => handleUpdateOpen(achievement)}>Update</Button>
+                                <Button onClick={() => handleDeleteOpen(achievement)}>Delete</Button>
                                 <Button>Claim Reward</Button>
                             </CardActions>
                             <Typography variant="caption" color="textSecondary" sx={{ marginLeft: 2 }}>
@@ -178,13 +226,51 @@ function Achievements() {
                     </Button>
                 </DialogActions>
             </Dialog>
-            <Dialog open={dopen} onClose={handleDeleteClose}>
-                <DialogTitle>Delete a Achievement</DialogTitle>
+            <Dialog open={updateOpen} onClose={handleUpdateClose}>
+                <DialogTitle>Update Achievement</DialogTitle>
                 <DialogContent>
                     <TextField
                         autoFocus
                         margin="dense"
-                        label="id"
+                        label="Description"
+                        type="text"
+                        fullWidth
+                        value={updateDescription}
+                        onChange={(e) => setUpdateDescription(e.target.value)}
+                    />
+                    <TextField
+                        margin="dense"
+                        label="Reward"
+                        type="text"
+                        fullWidth
+                        value={updateReward}
+                        onChange={(e) => setUpdateReward(e.target.value)}
+                    />
+                    <TextField
+                        margin="dense"
+                        label="Epoch (Date Completed)"
+                        type="text"
+                        fullWidth
+                        value={updateEpoch}
+                        onChange={(e) => setUpdateEpoch(e.target.value)}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleUpdateClose} color="primary">
+                        Cancel
+                    </Button>
+                    <Button onClick={handleUpdateAchievement} color="primary">
+                        Update
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            <Dialog open={dopen} onClose={handleDeleteClose}>
+                <DialogTitle>Delete an Achievement</DialogTitle>
+                <DialogContent>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        label="ID"
                         type="text"
                         fullWidth
                         value={savedId}
