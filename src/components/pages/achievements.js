@@ -78,7 +78,11 @@ function Achievements() {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                return response.json();
+                if (response.data === undefined) {
+                    console.log("preventing json error")
+                } else {
+                    return response.json();
+                }
             })
             .then(() => {
                 const updatedAchievements = achievements.filter(achievement => achievement.id !== savedId);
@@ -106,7 +110,11 @@ function Achievements() {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                return response.json();
+                if (response.data === undefined) {
+                    console.log("preventing json error")
+                } else {
+                    return response.json();
+                }
             })
             .then(data => {
                 const updatedAchievements = achievements.map(achievement => {
@@ -114,8 +122,7 @@ function Achievements() {
                         return {
                             ...achievement,
                             description: updateDescription,
-                            reward: updateReward,
-                            date_completed: data.date_completed
+                            reward: updateReward
                         };
                     }
                     return achievement;
@@ -185,7 +192,6 @@ function Achievements() {
                                 filter: achievement.date_completed ? 'blur(2px)' : 'none',
                                 pointerEvents: achievement.date_completed ? 'none' : 'auto',
                                 opacity: achievement.date_completed ? 0.7 : 1,
-                                zIndex: -1,
                             }}
                         >
                             <CardContent>
