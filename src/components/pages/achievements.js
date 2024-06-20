@@ -28,15 +28,12 @@ function Achievements() {
     const [updateEpoch, setUpdateEpoch] = useState('');
     const [updateReward, setUpdateReward] = useState('');
     const [updateId, setUpdateId] = useState('');
-    
+
     useEffect(() => {
         fetch(API_URL)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
-                }
-                if (response.data === undefined) {
-                    console.log('No achievements found'); 
                 }
                 return response.json();
             })
@@ -71,7 +68,7 @@ function Achievements() {
                 setError(error);
             });
     };
-    
+
     const handleDeleteAchievement = () => {
         const deleteURL = `${DELETE_URL}?id=${savedId}`;
         fetch(deleteURL, {
@@ -81,11 +78,7 @@ function Achievements() {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                if (response.data === undefined) {
-                    console.log('No achievements found'); // Optional: Log message for empty data
-                } else {
-                    return response.json();
-                }
+                return response.json();
             })
             .then(() => {
                 const updatedAchievements = achievements.filter(achievement => achievement.id !== savedId);
@@ -100,10 +93,8 @@ function Achievements() {
     };
 
     const handleUpdateAchievement = () => {
-        // Construct the base update URL with required parameters
         let updateURL = `${UPDATE_URL}?id=${updateId}&description=${updateDescription}&reward=${updateReward}`;
     
-        // Conditionally add date_completed if it's available
         if (updateEpoch) {
             updateURL += `&date_completed=${updateEpoch}`;
         }
@@ -115,11 +106,7 @@ function Achievements() {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                if (response.data === undefined) {
-                    console.log('No achievements found'); // Optional: Log message for empty data
-                } else {
-                    return response.json();
-                }
+                return response.json();
             })
             .then(data => {
                 const updatedAchievements = achievements.map(achievement => {
@@ -127,7 +114,8 @@ function Achievements() {
                         return {
                             ...achievement,
                             description: updateDescription,
-                            reward: updateReward
+                            reward: updateReward,
+                            date_completed: data.date_completed
                         };
                     }
                     return achievement;
@@ -144,10 +132,10 @@ function Achievements() {
                 setError(error);
             });
     };
-    
+
     const handleDeleteOpen = (achievement) => {
-        setSavedId(achievement.id); // Set savedId to the ID of the achievement
-        setDeleteOpen(true); // Open the delete dialog
+        setSavedId(achievement.id);
+        setDeleteOpen(true);
     };
     
     const handleDeleteClose = () => {
@@ -167,7 +155,7 @@ function Achievements() {
         setUpdateId(achievement.id);
         setUpdateDescription(achievement.description);
         setUpdateReward(achievement.reward);
-        setUpdateEpoch(achievement.date_completed ? achievement.date_completed.toString() : ''); // Handle null case
+        setUpdateEpoch(achievement.date_completed ? achievement.date_completed.toString() : '');
     };
     
     const handleUpdateClose = () => {
@@ -188,7 +176,18 @@ function Achievements() {
                 </Box>
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'center', flexGrow: 1 }}>
                     {achievements.map((achievement, index) => (
-                        <Card key={achievement.id} sx={{ maxWidth: 350, margin: 2 }}>
+                        <Card
+                            key={achievement.id}
+                            sx={{
+                                maxWidth: 350,
+                                margin: 2,
+                                position: 'relative',
+                                filter: achievement.date_completed ? 'blur(2px)' : 'none',
+                                pointerEvents: achievement.date_completed ? 'none' : 'auto',
+                                opacity: achievement.date_completed ? 0.7 : 1,
+                                zIndex: -1,
+                            }}
+                        >
                             <CardContent>
                                 <Typography variant="h5" component="div">
                                     Achievement {index + 1}
@@ -200,6 +199,24 @@ function Achievements() {
                                 <Typography variant="body2">
                                     Completing this achievement will allow you to: {achievement.reward}
                                 </Typography>
+                                {achievement.date_completed && (
+                                    <Typography
+                                        variant="h5"
+                                        sx={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            transform: 'translate(-50%, -50%)',
+                                            backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                                            padding: '4px 8px',
+                                            borderRadius: '4px',
+                                            fontWeight: 'bold',
+                                            zIndex: 10000,
+                                        }}
+                                    >
+                                        Completed on {new Date(achievement.date_completed * 1000).toLocaleDateString()}
+                                    </Typography>
+                                )}
                             </CardContent>
                             <CardActions>
                                 <Button onClick={() => handleUpdateOpen(achievement)}>Update</Button>
