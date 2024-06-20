@@ -5,6 +5,7 @@ import Achievements from './components/pages/achievements';
 import Polls from './components/pages/polls';
 import Standings from './components/pages/standings';
 import Media from './components/pages/media';
+import Schedule from './components/pages/schedule';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/achievements" element={<Achievements />} />
         <Route path="/polls" element={<Polls />} />
         <Route path="/standings" element={<Standings />} />
+        <Route path="/schedule" element={<Schedule />} />
         <Route path="/media" element={<Media />} />
       </Routes>
     </Router>
