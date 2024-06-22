@@ -26,6 +26,12 @@ jobs:
         run: npm run build
       - name: docker
         run: docker build -t ${DOCKER_URL}:${GITHUB_SHA} .
+      - name: Login to DockerHub
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
       - name: push
         run: docker push ${DOCKER_URL}:${GITHUB_SHA}
       - name: tag main
@@ -46,12 +52,6 @@ jobs:
           tags: |
             type=raw,value=${{ github.sha }}
             type=raw,enable=${{ github.ref == 'refs/heads/main' }},value=main
-      - name: Login to DockerHub
-        if: github.event_name != 'pull_request'
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
