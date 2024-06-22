@@ -9,6 +9,7 @@ on:
 
 env:
   DOCKER_URL: dcritchlow/football-dynasty
+  CI: false
 
 jobs:
   build:
