@@ -27,7 +27,7 @@ function Standings() {
   const [standings, setStandings] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/v1.0/standings')
+    fetch('https://quiet-waters-73507-4fc26eff764d.herokuapp.com/api/v1.0/standings')
       .then(response => response.json())
       .then(data => { 
         setStandings(data);

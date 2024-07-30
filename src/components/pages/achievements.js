@@ -11,9 +11,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 
-const API_URL = 'http://localhost:8080/api/v1.0/achievements';
-const DELETE_URL = 'http://localhost:8080/api/v1.0/deleteAchievement';
-const UPDATE_URL = 'http://localhost:8080/api/v1.0/updateAchievement';
+const API_URL = 'https://quiet-waters-73507-4fc26eff764d.herokuapp.com/api/v1.0/achievements';
+const DELETE_URL = 'https://quiet-waters-73507-4fc26eff764d.herokuapp.com/api/v1.0/deleteAchievement';
+const UPDATE_URL = 'https://quiet-waters-73507-4fc26eff764d.herokuapp.com/api/v1.0/updateAchievement';
 
 function Achievements() {
     const [achievements, setAchievements] = useState([]);
@@ -47,7 +47,7 @@ function Achievements() {
     }, []);
 
     const handleCreateAchievement = () => {
-        const createURL = `http://localhost:8080/api/v1.0/createAchievement?description=${newDescription}&reward=${newReward}`;
+        const createURL = `https://quiet-waters-73507-4fc26eff764d.herokuapp.com/api/v1.0/createAchievement?description=${newDescription}&reward=${newReward}`;
         fetch(createURL, {
             method: 'POST'
         })
