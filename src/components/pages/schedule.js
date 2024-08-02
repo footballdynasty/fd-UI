@@ -6,7 +6,7 @@ import { styled } from '@mui/material/styles';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { PersonOutline } from '@mui/icons-material';
 import { SmartToyOutlined } from '@mui/icons-material';
-import { fontSize } from '@mui/system';
+import '../../index.css';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -53,13 +53,13 @@ function Schedule() {
 
     return (
         <Container fixed sx={{ pt: '2em' }}>
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650, maxWidth: 1550 }} aria-label="schedule table">
+            <TableContainer component={Paper} sx={{ minWidth: 300, maxWidth: 1550 }}>
+                <Table aria-label="schedule table">
                     <TableHead>
                         <StyledTableRow>
-                            <StyledTableCell align="left" >Home Team</StyledTableCell>
-                            <StyledTableCell align="center">Date</StyledTableCell>
-                            <StyledTableCell align="right">Away Team</StyledTableCell>
+                            <StyledTableCell align="left" style={{fontSize: 15}}>Home Team</StyledTableCell>
+                            <StyledTableCell align="center" style={{fontSize: 15}}>Date</StyledTableCell>
+                            <StyledTableCell align="right" style={{fontSize: 15}}>Away Team</StyledTableCell>
                         </StyledTableRow>
                     </TableHead>
                     <TableBody>
@@ -69,23 +69,23 @@ function Schedule() {
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <StyledTableCell align="left">
-                                    <Box component="img" height={100} src={game.homeTeam.imageUrl}></Box>
-                                    <div class="team-name" display="flex" flexDirection="column" >{game.homeTeam.name}</div>
+                                    <Box component="img" height={50} src={game.homeTeam.imageUrl}></Box>
+                                    <div class="teamName" display="flex" flexDirection="column">{game.homeTeam.name}</div>
                                 </StyledTableCell>
                                 <StyledTableCell align="center">
-                                    <Box component="section" height={75} display="flex" alignItems="center" gap={4} justifyContent="center" >
+                                    <Box component="section" height={40} display="flex" alignItems="center" gap={4} justifyContent="center" >
                                         {/* <Box height={50} width={50} component="section"> */}
-                                        {game.homeTeam.isHuman ? <PersonOutline sx={{ fontSize: 40 }} /> : <SmartToyOutlined sx={{ fontSize: 40 }} />}
+                                        {game.homeTeam.isHuman ? <PersonOutline sx={{ fontSize: 25 }} /> : <SmartToyOutlined sx={{ fontSize: 25 }} />}
                                         {/* </Box> */}
-                                        <div class="team-date">{game.date}</div>
+                                        <div class="teamDate">{game.date}</div>
                                         {/* <Box height={50} width={50} component="section"> */}
-                                        {game.awayTeam.isHuman ? <PersonOutline sx={{ fontSize: 40 }} /> : <SmartToyOutlined sx={{ fontSize: 40 }} />}
+                                        {game.awayTeam.isHuman ? <PersonOutline sx={{ fontSize: 25 }} /> : <SmartToyOutlined sx={{ fontSize: 25 }} />}
                                         {/* </Box> */}
                                     </Box>
                                 </StyledTableCell>
                                 <StyledTableCell align="right">
-                                    <Box component="img" height={100} src={game.awayTeam.imageUrl}></Box>
-                                    <div class="team-name">
+                                    <Box component="img" height={40} src={game.awayTeam.imageUrl}></Box>
+                                    <div class="teamName">
                                         {game.awayTeam.name}
                                     </div>
                                 </StyledTableCell>

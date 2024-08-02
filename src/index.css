@@ -12,3 +12,27 @@ code {
     monospace;
 }
 
+.teamName {
+  font-size: calc(5px + 1.5vmin)
+  /* font-size: 50px; */
+}
+
+.teamDate {
+  font-size: calc(5px + 2vmin)
+  /* font-size: 50px; */
+}
+
+.tableHeader {
+  font-size: calc(5px + 2.5vmin)
+}
+
+th {
+  font-size: 1em;
+}
+
+@media (min-width: 200px) {
+  .css-78p8sw-MuiContainer-root {
+      padding-left: 0px !important;
+      padding-right: 0px !important;
+  }
+}

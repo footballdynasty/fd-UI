@@ -38,25 +38,26 @@ function Standings() {
 
   return (
     <Container fixed sx={{ pt: '2em' }}>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650, maxWidth:1550 }} aria-label="standings table">
+      <TableContainer component={Paper} sx={{ minWidth: 300, maxWidth:1550 }} >
+        <Table aria-label="standings table">
           <TableHead>
             <StyledTableRow>
-              <StyledTableCell>Team</StyledTableCell>
-              <StyledTableCell align="right">Wins</StyledTableCell>
-              <StyledTableCell align="right">Losses</StyledTableCell>
+              <StyledTableCell align="left" style={{fontSize: 15}}>Team</StyledTableCell>
+              <StyledTableCell align="center" style={{fontSize: 15}}>Wins</StyledTableCell>
+              <StyledTableCell align="right" style={{fontSize: 15}}>Losses</StyledTableCell>
             </StyledTableRow>
           </TableHead>
           <TableBody>
             {standings.map((standing) => (
               <StyledTableRow
                 key={standing.team.id}
+                align="left"
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <StyledTableCell component="th" scope="row">
                   {standing.team.name}
                 </StyledTableCell>
-                <StyledTableCell align="right">{standing.wins}</StyledTableCell>
+                <StyledTableCell align="center">{standing.wins}</StyledTableCell>
                 <StyledTableCell align="right">{standing.losses}</StyledTableCell>
               </StyledTableRow>
             ))}
