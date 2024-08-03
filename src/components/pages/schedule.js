@@ -71,6 +71,7 @@ function Schedule() {
                                 <StyledTableCell align="left">
                                     <Box component="img" height={50} src={game.homeTeam.imageUrl}></Box>
                                     <div class="teamName" display="flex" flexDirection="column">{game.homeTeam.name}</div>
+                                    {game.homeTeamRank > 0 ? <div>{game.homeTeamRank}</div> : <div></div>}
                                 </StyledTableCell>
                                 <StyledTableCell align="center">
                                     <Box component="section" height={40} display="flex" alignItems="center" gap={4} justifyContent="center" >
@@ -88,6 +89,7 @@ function Schedule() {
                                     <div class="teamName">
                                         {game.awayTeam.name}
                                     </div>
+                                    {game.awayTeamRank > 0 ? <div>{game.awayTeamRank}</div> : <div></div>}
                                 </StyledTableCell>
                             </StyledTableRow>
                         ))}
