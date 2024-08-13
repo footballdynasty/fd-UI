@@ -1,0 +1,55 @@
+POST https://quiet-waters-73507-4fc26eff764d.herokuapp.com/api/v1.0/updateGames HTTP/1.1
+content-type: application/json
+
+[
+   {
+        "homeTeamName": "Miami-OH",
+        "awayTeamName": "Ohio",
+        "date": "2024-08-14",
+        "year": 2024,
+        "weekNumber": 8,
+        "homeScore": 33,
+        "awayScore": 28
+    }
+]
+
+###
+
+POST http://localhost:8080/api/v1.0/updateGames HTTP/1.1
+content-type: application/json
+
+[
+    {
+        "homeTeamName": "Marshall",
+        "awayTeamName": "Western Michigan",
+        "year": 2024,
+        "weekNumber": 5,
+        "homeScore": 35,
+        "awayScore": 21,
+    },
+    {
+        "homeTeamName": "UConn",
+        "awayTeamName": "Buffalo",
+        "year": 2024,
+        "weekNumber": 5,
+        "homeScore": 17,
+        "awayScore": 38,
+    }
+]
+
+###
+
+POST http://localhost:8080/api/v1.0/updateGames HTTP/1.1
+content-type: application/json
+
+[
+    {
+        "homeTeamName": "Jacksonville State",
+        "awayTeamName": "Ball State",
+        "date": "2024-07-25",
+        "year": 2024,
+        "weekNumber": 2,
+        "homeScore": 7,
+        "awayScore": 30
+    }
+]

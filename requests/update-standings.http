@@ -1,0 +1,8 @@
+### https://quiet-waters-73507-4fc26eff764d.herokuapp.com
+# POST http://localhost:8080/api/v1.0/updateStandings HTTP/1.1
+POST https://quiet-waters-73507-4fc26eff764d.herokuapp.com/api/v1.0/updateStandings HTTP/1.1
+content-type: application/json
+
+{
+    "year": 2024
+}

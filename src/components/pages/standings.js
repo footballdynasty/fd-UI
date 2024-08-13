@@ -43,7 +43,9 @@ function Standings() {
           <TableHead>
             <StyledTableRow>
               <StyledTableCell align="left" style={{fontSize: 15}}>Team</StyledTableCell>
-              <StyledTableCell align="center" style={{fontSize: 15}}>Wins</StyledTableCell>
+              <StyledTableCell align="left" style={{fontSize: 15}}>Conference Wins</StyledTableCell>
+              <StyledTableCell align="left" style={{fontSize: 15}}>Conference Losses</StyledTableCell>
+              <StyledTableCell align="right" style={{fontSize: 15}}>Wins</StyledTableCell>
               <StyledTableCell align="right" style={{fontSize: 15}}>Losses</StyledTableCell>
             </StyledTableRow>
           </TableHead>
@@ -54,10 +56,10 @@ function Standings() {
                 align="left"
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <StyledTableCell component="th" scope="row">
-                  {standing.team.name}
-                </StyledTableCell>
-                <StyledTableCell align="center">{standing.wins}</StyledTableCell>
+                <StyledTableCell align="left">{standing.team.name}</StyledTableCell>
+                <StyledTableCell align="left">{standing.conference_wins}</StyledTableCell>
+                <StyledTableCell align="left">{standing.conference_losses}</StyledTableCell>
+                <StyledTableCell align="right">{standing.wins}</StyledTableCell>
                 <StyledTableCell align="right">{standing.losses}</StyledTableCell>
               </StyledTableRow>
             ))}
