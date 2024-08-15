@@ -30,9 +30,24 @@ th {
   font-size: 1em;
 }
 
-@media (min-width: 200px) {
-  .css-78p8sw-MuiContainer-root {
+@media only screen and (max-device-width: 480px) {
+  .MuiContainer-root {
       padding-left: 0px !important;
       padding-right: 0px !important;
+  }
+  .teamName {
+    font-size: calc(4px + 1vmin)
+  }
+  .teamDate {
+    font-size: calc(4px + 1vmin)
+  }
+  .MuiBox-root {
+    height: 20px !important;
+  }
+  .MuiTableCell-head {
+    font-size: calc(4px + 1vmin) !important;
+  }
+  .MuiSvgIcon-root {
+    font-size: calc(4px + 2vmin) !important;
   }
 }

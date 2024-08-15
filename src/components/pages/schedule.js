@@ -74,14 +74,12 @@ function Schedule() {
                                     {game.homeTeamRank > 0 ? <div>{game.homeTeamRank}</div> : <div></div>}
                                 </StyledTableCell>
                                 <StyledTableCell align="center">
-                                    <Box component="section" height={40} display="flex" alignItems="center" gap={4} justifyContent="center" >
-                                        {/* <Box height={50} width={50} component="section"> */}
+                                    <Box component="section" height={30} display="flex" alignItems="center" gap={4} justifyContent="center" >
+                                        {game.homeScore > 0 ? <div>{game.homeScore}</div> : <div> - </div>}
                                         {game.homeTeam.isHuman ? <PersonOutline sx={{ fontSize: 25 }} /> : <SmartToyOutlined sx={{ fontSize: 25 }} />}
-                                        {/* </Box> */}
                                         <div class="teamDate">{game.date}</div>
-                                        {/* <Box height={50} width={50} component="section"> */}
                                         {game.awayTeam.isHuman ? <PersonOutline sx={{ fontSize: 25 }} /> : <SmartToyOutlined sx={{ fontSize: 25 }} />}
-                                        {/* </Box> */}
+                                        {game.awayScore > 0 ? <div>{game.awayScore}</div> : <div> - </div>}
                                     </Box>
                                 </StyledTableCell>
                                 <StyledTableCell align="right">
