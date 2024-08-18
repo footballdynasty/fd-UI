@@ -3,13 +3,13 @@ content-type: application/json
 
 [
    {
-        "homeTeamName": "Northern Illinois",
-        "awayTeamName": "Toledo",
-        "date": "2024-08-14",
+        "homeTeamName": "Ohio",
+        "awayTeamName": "Northern Illinois",
+        "date": "2024-08-21",
         "year": 2024,
-        "weekNumber": 8,
-        "homeScore": 26,
-        "awayScore": 43
+        "weekNumber": 10,
+        "homeScore": 14,
+        "awayScore": 49
     }
 ]
 
