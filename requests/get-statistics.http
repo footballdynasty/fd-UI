@@ -1,3 +1,7 @@
 ### statistics https://quiet-waters-73507-4fc26eff764d.herokuapp.com/ http://localhost:8080
+GET https://quiet-waters-73507-4fc26eff764d.herokuapp.com/api/v1.0/statistics HTTP/1.1
+content-type: application/json
+
+### statistics https://quiet-waters-73507-4fc26eff764d.herokuapp.com/ http://localhost:8080
 GET http://localhost:8080/api/v1.0/statistics HTTP/1.1
 content-type: application/json

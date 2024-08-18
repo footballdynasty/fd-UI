@@ -6,12 +6,14 @@ import Polls from './components/pages/polls';
 import Standings from './components/pages/standings';
 import Media from './components/pages/media';
 import Schedule from './components/pages/schedule';
+import Home from './components/pages/home';
 
 function App() {
   return (
     <Router>
       <ResponsiveAppBar />
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/achievements" element={<Achievements />} />
         <Route path="/polls" element={<Polls />} />
         <Route path="/standings" element={<Standings />} />
