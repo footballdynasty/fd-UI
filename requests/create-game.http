@@ -769,3 +769,65 @@ content-type: application/json
         "awayScore": 0
     }
 ]
+
+
+### week 13 https://quiet-waters-73507-4fc26eff764d.herokuapp.com/ http://localhost:8080
+POST https://quiet-waters-73507-4fc26eff764d.herokuapp.com/api/v1.0/createGames HTTP/1.1
+content-type: application/json
+
+[
+    {
+        "homeTeamName": "Miami-OH",
+        "awayTeamName": "Northern Illinois",
+        "date": "2024-09-05",
+        "year": 2024,
+        "weekNumber": 13,
+        "homeScore": 28,
+        "awayScore": 14
+    },
+    {
+        "homeTeamName": "Akron",
+        "awayTeamName": "Kent State",
+        "date": "2024-09-05",
+        "year": 2024,
+        "weekNumber": 13,
+        "homeScore": 0,
+        "awayScore": 0
+    },
+    {
+        "homeTeamName": "Western Michigan",
+        "awayTeamName": "Central Michigan",
+        "date": "2024-09-05",
+        "year": 2024,
+        "weekNumber": 13,
+        "homeScore": 0,
+        "awayScore": 0
+    },
+    {
+        "homeTeamName": "Ohio",
+        "awayTeamName": "Toledo",
+        "date": "2024-09-05",
+        "year": 2024,
+        "weekNumber": 13,
+        "homeScore": 41,
+        "awayScore": 37
+    },
+    {
+        "homeTeamName": "Buffalo",
+        "awayTeamName": "Eastern Michigan",
+        "date": "2024-09-05",
+        "year": 2024,
+        "weekNumber": 13,
+        "homeScore": 22,
+        "awayScore": 27
+    },
+    {
+        "homeTeamName": "Ball State",
+        "awayTeamName": "Bowling Green",
+        "date": "2024-09-05",
+        "year": 2024,
+        "weekNumber": 13,
+        "homeScore": 35,
+        "awayScore": 27
+    }
+]
